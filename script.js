@@ -52,6 +52,26 @@ let playSound = function (name) {
   mySound.play();
 };
 
+let checkWinner = function () {
+  if (totalOne >= 100) {
+    console.log('Player One Wins!');
+    playerOneName.textContent = 'Player 1 Wins! 🥳';
+    playerTwoName.textContent = 'Player 2 is Pig! 🐷'
+    playerOne.classList.add('player--winner');
+    gameOn = false;
+    return true;
+  } else if (totalTwo >= 100) {
+    console.log('Player One Wins!');
+    playerTwoName.textContent = 'Player 2 Wins! 🥳';
+    playerOneName.textContent = 'Player 1 is Pig! 🐷'
+    playerTwo.classList.add('player--winner');
+    gameOn = false;
+    return true;
+  } else {
+    return false;
+  }
+};
+
 let sum = 0;
 let totalOne = 0;
 let totalTwo = 0;
@@ -59,69 +79,62 @@ let gameOn = true;
 showTotal();
 
 rollDice.addEventListener('click', function () {
-  playSound('dice');
-  if (gameOn) {
-    randNo();
-    let diceName = `dice-${randNumber}.png`;
-    dice.src = diceName;
-    showTotal();
-    if (randNumber === 1) {
-      if (playerOneActive()) {
-        playerOneTotal.textContent = totalOne;
-        removeActive(playerOne);
-        addActive(playerTwo);
-        playerOneScore.textContent = 0;
-      } else {
-        playerTwoTotal.textContent = totalTwo;
-        removeActive(playerTwo);
-        addActive(playerOne);
-        playerTwoScore.textContent = 0;
+    console.log(!checkWinner());
+    if (!checkWinner() && gameOn) {
+        console.log("Inside !checkWinner() false && gameOn");
+        playSound('dice');
+        randNo();
+        let diceName = `dice-${randNumber}.png`;
+        dice.src = diceName;
+        showTotal();
+        if (randNumber === 1) {
+          console.log("Dice is one!");
+          if (playerOneActive()) {
+            console.log("Player one was active. Switching to player two...");
+            playerOneTotal.textContent = totalOne;
+            removeActive(playerOne);
+            addActive(playerTwo);
+            playerOneScore.textContent = 0;
+          } else {
+            console.log("Player two was active, switching to player one...");
+            playerTwoTotal.textContent = totalTwo;
+            removeActive(playerTwo);
+            addActive(playerOne);
+            playerTwoScore.textContent = 0;
+          }
+          sum = 0;
+        } else {
+          console.log("Dice is not one!");
+          sum += randNumber;
+          if (playerOneActive()){
+            playerOneScore.textContent = sum;
+          } else{
+            playerTwoScore.textContent = sum;
+          }
       }
-      sum = 0;
-    } else {
-      sum += randNumber;
-      console.log(`Sum is ${sum}`);
     }
-    if (playerOneActive()) {
-      playerOneScore.textContent = sum;
-    } else {
-      playerTwoScore.textContent = sum;
-    }
-    if (totalOne >= 100) {
-      playSound('win');
-      playerOneName.textContent = 'Player 1 Wins! 🥳';
-      removeActive(playerTwo);
-      addActive(playerOne);
-      gameOn = false;
-    } else if (totalTwo >= 100) {
-      playSound('win');
-      playerTwoName.textContent = 'Player 2 Wins! 🥳';
-      removeActive(playerOne);
-      addActive(playerTwo);
-      gameOn = false;
-    }
-  }
-});
+  });
 
 hold.addEventListener('click', function () {
-  playSound('hold');
-  if (gameOn) {
+  if (!checkWinner() && gameOn) {
+    playSound('hold');
     if (playerOneActive()) {
       removeActive(playerOne);
       addActive(playerTwo);
       totalOne += sum;
-      console.log(`totalOne is ${totalOne}`);
       playerOneScore.textContent = 0;
       showTotal();
     } else {
       removeActive(playerTwo);
       addActive(playerOne);
       totalTwo += sum;
-      console.log(`totalTwo is ${totalTwo}`);
       playerTwoScore.textContent = 0;
       showTotal();
     }
     sum = 0;
+    console.log(`totalOne is ${totalOne}`);
+    console.log(`totalTwo is ${totalTwo}`);
+    if (checkWinner()) playSound('win');
   }
 });
 
