@@ -87,13 +87,13 @@ rollDice.addEventListener('click', function () {
     } else {
       playerTwoScore.textContent = sum;
     }
-    if (totalOne >= 20) {
+    if (totalOne >= 100) {
       playSound('win');
       playerOneName.textContent = 'Player 1 Wins! 🥳';
       removeActive(playerTwo);
       addActive(playerOne);
       gameOn = false;
-    } else if (totalTwo >= 20) {
+    } else if (totalTwo >= 100) {
       playSound('win');
       playerTwoName.textContent = 'Player 2 Wins! 🥳';
       removeActive(playerOne);
