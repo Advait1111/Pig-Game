@@ -1,0 +1,12 @@
+After clicking 'Roll Dice', dice will be rolled for player one.
+The points he gets from rolling the dice will be saved under 'Current Score' area.
+Now their will be two options for both the players when they roll the dice, in the form of,
+'Roll Dice' or 'Hold'
+If player rolls the dice, new dice points will be added to 'Current Score' area. 
+As long as player keeps on rolling the dice, points will be added to 'Current Score' until he gets one point dice.
+If he gets one point dice, he loses all of his 'Current Score' points.
+So he also has the option to 'Hold' the current points he has gathered before he gets one.
+If he gets one, chance will be automatially given to the other player to roll the dice!
+Whenever chance is given to other player, 'Current Score' will be added to the existing Upper score.
+The first player to reach the 100 points mark, wil win the game of Pig!
+Losing player will become the pig! 🐷
