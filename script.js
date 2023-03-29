@@ -26,10 +26,10 @@ let randNo = function () {
 
 let playerOneActive = function () {
   if (playerOne.classList.contains('player--active')) {
-    console.log('Player one is active');
+    // console.log('Player one is active');
     return true;
   } else {
-    console.log('Player two is active');
+    // console.log('Player two is active');
     return false;
   }
 };
@@ -54,16 +54,16 @@ let playSound = function (name) {
 
 let checkWinner = function () {
   if (totalOne >= 100) {
-    console.log('Player One Wins!');
+    // console.log('Player One Wins!');
     playerOneName.textContent = 'Player 1 Wins! 🥳';
-    playerTwoName.textContent = 'Player 2 is Pig! 🐷'
+    playerTwoName.textContent = 'Player 2 is Pig! 🐷';
     playerOne.classList.add('player--winner');
     gameOn = false;
     return true;
   } else if (totalTwo >= 100) {
-    console.log('Player One Wins!');
+    // console.log('Player One Wins!');
     playerTwoName.textContent = 'Player 2 Wins! 🥳';
-    playerOneName.textContent = 'Player 1 is Pig! 🐷'
+    playerOneName.textContent = 'Player 1 is Pig! 🐷';
     playerTwo.classList.add('player--winner');
     gameOn = false;
     return true;
@@ -79,41 +79,41 @@ let gameOn = true;
 showTotal();
 
 rollDice.addEventListener('click', function () {
-    console.log(!checkWinner());
-    if (!checkWinner() && gameOn) {
-        console.log("Inside !checkWinner() false && gameOn");
-        playSound('dice');
-        randNo();
-        let diceName = `dice-${randNumber}.png`;
-        dice.src = diceName;
-        showTotal();
-        if (randNumber === 1) {
-          console.log("Dice is one!");
-          if (playerOneActive()) {
-            console.log("Player one was active. Switching to player two...");
-            playerOneTotal.textContent = totalOne;
-            removeActive(playerOne);
-            addActive(playerTwo);
-            playerOneScore.textContent = 0;
-          } else {
-            console.log("Player two was active, switching to player one...");
-            playerTwoTotal.textContent = totalTwo;
-            removeActive(playerTwo);
-            addActive(playerOne);
-            playerTwoScore.textContent = 0;
-          }
-          sum = 0;
-        } else {
-          console.log("Dice is not one!");
-          sum += randNumber;
-          if (playerOneActive()){
-            playerOneScore.textContent = sum;
-          } else{
-            playerTwoScore.textContent = sum;
-          }
+  // console.log(!checkWinner());
+  if (!checkWinner() && gameOn) {
+    // console.log("Inside !checkWinner() false && gameOn");
+    playSound('dice');
+    randNo();
+    let diceName = `dice-${randNumber}.png`;
+    dice.src = diceName;
+    showTotal();
+    if (randNumber === 1) {
+      // console.log("Dice is one!");
+      if (playerOneActive()) {
+        // console.log("Player one was active. Switching to player two...");
+        playerOneTotal.textContent = totalOne;
+        removeActive(playerOne);
+        addActive(playerTwo);
+        playerOneScore.textContent = 0;
+      } else {
+        // console.log("Player two was active, switching to player one...");
+        playerTwoTotal.textContent = totalTwo;
+        removeActive(playerTwo);
+        addActive(playerOne);
+        playerTwoScore.textContent = 0;
+      }
+      sum = 0;
+    } else {
+      // console.log("Dice is not one!");
+      sum += randNumber;
+      if (playerOneActive()) {
+        playerOneScore.textContent = sum;
+      } else {
+        playerTwoScore.textContent = sum;
       }
     }
-  });
+  }
+});
 
 hold.addEventListener('click', function () {
   if (!checkWinner() && gameOn) {
@@ -132,8 +132,8 @@ hold.addEventListener('click', function () {
       showTotal();
     }
     sum = 0;
-    console.log(`totalOne is ${totalOne}`);
-    console.log(`totalTwo is ${totalTwo}`);
+    // console.log(`totalOne is ${totalOne}`);
+    // console.log(`totalTwo is ${totalTwo}`);
     if (checkWinner()) playSound('win');
   }
 });
@@ -151,4 +151,9 @@ resetGame.addEventListener('click', function () {
   totalOne = 0;
   totalTwo = 0;
   gameOn = true;
+  if (playerOne.classList.contains('player--winner')){
+    playerOne.classList.remove('player--winner');
+  } else{
+    playerTwo.classList.remove('player--winner');
+  };
 });
